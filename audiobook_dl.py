@@ -1,47 +1,57 @@
-# audiobook_dl.py>
-
-import youtube_dl
+#import youtube_dl
 from youtube_search import YoutubeSearch
+from sys import platform
 import os
+import json
 
 version=0.1
 
+
 ## Functions
 def print_banner():
-	os.system('clear')
+	if platform == "linux" or platform == "linux2":
+		# linux
+		os.system('clear')
+	elif platform == "darwin":
+		# OS X
+		os.system('clear')
+	elif platform == "win32":
+		# Windows...
+		os.system('cls')
+
 	print("---------------------------------------")
-	print("--------- Audio Book Maker ------------")
+	print("---------- Audiobook Maker ------------")
 	print("----------------------------- v", version ," --\n\n")
 	return;
 
 def search():
-	results_json = YoutubeSearch('search terms', max_results=1).to_json()
-	results_dict = YoutubeSearch('search terms', max_results=1).to_dict()
-    
-	print(results_json)
+	
+
+	# to_search = input('What book would you like to listen to? \n')
+	to_search="mozart night music"
+	
+
 	print("\n\n")
+	# terminal_input = "youtube-dl ytsearch:" + to_search + " -g"
+	# os.system(terminal_input)
+
+	# results_json = YoutubeSearch(to_search, max_results=1).to_json()
+	results_dict = YoutubeSearch(to_search, max_results=5).to_dict()
+
+	print("Dict is")
 	print(results_dict)
 	print("\n\n")
-	return;
 
-def download():
+	# print("JSON is")
+	# print(results_json)
+	# print("\n\n")
 
-	ydl = youtube_dl.YoutubeDL({'outtmpl': '%(id)s.%(ext)s'})
+	print(results_dict[0]["url_suffix"])
+	print(results_dict[1]["url_suffix"])
 
-	with ydl:
-	    result = ydl.extract_info(
-	        'https://www.youtube.com/watch?v=oy2zDJPIgwc',
-	        download=False # We just want to extract the info
-	    )
-	
-	if 'entries' in result:
-	    # Can be a playlist or a list of videos
-	    video = result['entries'][0]
-	else:
-	    # Just a video
-	    video = result
-	
-	print(video)
-	video_url = video['url']
-	print(video_url)
-		
+	url_suffix=results_dict[0]["url_suffix"]
+	return url_suffix;
+
+def download(url_suffix):
+	to_download="youtube-dl https://www.youtube.com" + url_suffix
+	os.system(to_download)
