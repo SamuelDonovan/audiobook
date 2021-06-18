@@ -25,33 +25,10 @@ def print_banner():
 	return;
 
 def search_function(to_search):
-	
-
-	# to_search = input('What book would you like to listen to? \n')
-	#to_search="mozart night music"
-	
-
-	print("\n\n")
-	# terminal_input = "youtube-dl ytsearch:" + to_search + " -g"
-	# os.system(terminal_input)
-
-	# results_json = YoutubeSearch(to_search, max_results=1).to_json()
-	results_dict = YoutubeSearch(to_search, max_results=5).to_dict()
-
-	# print("Dict is")
-	# print(results_dict)
-	# print("\n\n")
-
-	# print("JSON is")
-	# print(results_json)
-	# print("\n\n")
-
-	#print(results_dict[0]["url_suffix"])
-	#print(results_dict[1]["url_suffix"])
-
+	results_dict = YoutubeSearch(to_search, max_results=1).to_dict()
 	url_suffix=results_dict[0]["url_suffix"]
 	return url_suffix;
 
 def download_function(url_suffix):
-	to_download="youtube-dl -f m4a https://www.youtube.com" + url_suffix
+	to_download="youtube-dl -f m4a -o downloads/download.m4a https://www.youtube.com" + url_suffix
 	os.system(to_download)
