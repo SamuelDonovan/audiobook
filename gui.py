@@ -8,18 +8,16 @@ app = Flask(__name__)
 def index():
     if request.method == 'POST':
         search=request.form["search_form"]
-        os.system("rm downloads/download.m4a")
+        file_format=request.form["format_form"]
+        os.system("rm downloads/download.*")
         url_suffix=search_function(search)
-        download_function(url_suffix)
+        download_function(url_suffix, file_format)
         #return redirect(url_for("search_page", searched=search))
-        return send_from_directory(directory='./downloads', filename='download.m4a', as_attachment=True)
+        file_name='download.' + file_format
+        return send_from_directory(directory='./downloads', filename=file_name, as_attachment=True)
         #return render_template('index.html')
     else:
         return render_template('index.html')
-
-@app.route("/test")
-def search_page(searched):
-    return f"<h1>Searching for: {searched} ...</h1>"
 
 if __name__ == "__main__":
     app.run(host='192.168.1.215', debug=True)

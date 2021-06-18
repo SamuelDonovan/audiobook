@@ -29,6 +29,6 @@ def search_function(to_search):
 	url_suffix=results_dict[0]["url_suffix"]
 	return url_suffix;
 
-def download_function(url_suffix):
-	to_download="youtube-dl -f m4a -o downloads/download.m4a https://www.youtube.com" + url_suffix
+def download_function(url_suffix, file_format):
+	to_download="youtube-dl -f " + file_format + " -o downloads/download." + file_format + " https://www.youtube.com" + url_suffix
 	os.system(to_download)
