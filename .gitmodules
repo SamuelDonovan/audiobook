@@ -1,0 +1,3 @@
+[submodule "m4b-tool"]
+	path = m4b-tool
+	url = https://github.com/sandreas/m4b-tool.git
