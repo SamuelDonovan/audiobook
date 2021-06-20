@@ -1,28 +1,8 @@
-#import youtube_dl
+#!/usr/bin/env python3
 from youtube_search import YoutubeSearch
 from sys import platform
 import os
 import json
-
-version=0.1
-
-
-## Functions
-def print_banner():
-	if platform == "linux" or platform == "linux2":
-		# linux
-		os.system('clear')
-	elif platform == "darwin":
-		# OS X
-		os.system('clear')
-	elif platform == "win32":
-		# Windows...
-		os.system('cls')
-
-	print("---------------------------------------")
-	print("---------- Audiobook Maker ------------")
-	print("----------------------------- v", version ," --\n\n")
-	return;
 
 def search_function(to_search):
 	results_dict = YoutubeSearch(to_search, max_results=1).to_dict()

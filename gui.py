@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 from audiobook_dl import *
+from version import *
 import os
 
 app = Flask(__name__)
@@ -15,9 +16,8 @@ def index():
         #return redirect(url_for("search_page", searched=search))
         file_name='download.' + file_format
         return send_from_directory(directory='./downloads', filename=file_name, as_attachment=True)
-        #return render_template('index.html')
     else:
-        return render_template('index.html')
+        return render_template('index.html', version_num_f=version_num)
 
 if __name__ == "__main__":
     app.run(host='192.168.1.215', debug=True)
